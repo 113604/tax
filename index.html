@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0f6cbd">
+  <title>Tax AI｜Smart Tax Assistant</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="主要選單">
+      <div class="brand">
+        <div class="brand-mark">T</div>
+        <div><strong>Tax AI</strong><span>Smart Tax Assistant</span></div>
+      </div>
+      <nav>
+        <button class="nav-item active" data-view="home">⌂<span>首頁</span></button>
+        <button class="nav-item" data-view="search">⌕<span>智慧搜尋</span></button>
+        <button class="nav-item" data-view="bank">▦<span>題庫瀏覽</span></button>
+        <button class="nav-item" data-view="favorites">♡<span>我的收藏</span></button>
+      </nav>
+      <div class="sidebar-foot"><span class="status-dot"></span>題庫 V115.6.11<br><small>臺北市稅捐稽徵處同仁使用</small></div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <button id="menuBtn" class="icon-btn mobile-only" aria-label="開啟選單">☰</button>
+        <div><h1 id="pageTitle">首頁</h1><p id="pageSubtitle">快速找到正確、完整的電話答詢內容</p></div>
+        <div class="top-actions"><input id="excelFileInput" type="file" accept=".xlsx,.xls" hidden><button id="importExcelBtn" class="import-btn" type="button">📂 匯入 Excel 題庫</button><span class="database-pill"><b id="bankCount">109</b> 題正式題庫</span><button class="avatar" title="內部使用者">稅</button></div>
+      </header>
+
+      <section id="homeView" class="view active">
+        <div class="hero">
+          <div class="eyebrow">AI-POWERED KNOWLEDGE SEARCH</div>
+          <h2>您好，今天想查詢<br><span>哪一項稅務問題？</span></h2>
+          <p>輸入民眾的口語問題，Tax AI 會從電話測試題庫中整理答詢重點與標準回答。</p>
+          <form class="hero-search search-form">
+            <span>⌕</span><input class="search-input" placeholder="例如：房子出租後，房屋稅有節稅方式嗎？" autocomplete="off"><button>智慧搜尋</button>
+          </form>
+          <div id="popularSearches" class="chips"></div>
+        </div>
+
+        <div class="section-heading"><div><span>依業務分類查詢</span><h3>快速進入常用稅目</h3></div><button class="text-btn" data-go="bank">查看全部題庫 →</button></div>
+        <div id="categoryCards" class="category-grid"></div>
+
+        <div class="future-panel">
+          <div><span class="eyebrow">ROADMAP</span><h3>持續進化中的 Tax AI</h3><p>後續可再串接內部 AI、Word 題庫更新與電話測試訓練模組。</p></div>
+          <div class="future-grid">
+            <div><b>🎮 RPG 電話測試</b><small>情境式闖關訓練</small></div>
+            <div><b>✨ AI 評分</b><small>應答重點即時分析</small></div>
+            <div><b>★ 收藏同步</b><small>建立個人常用清單</small></div>
+            <div><b>W Word 更新題庫</b><small>批次匯入與版本控管</small></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="searchView" class="view">
+        <div class="search-page-head">
+          <div><span class="eyebrow">SMART SEARCH</span><h2>AI 智慧搜尋</h2><p>支援口語、同義詞、關鍵字與相關問題排序。</p></div>
+          <form class="page-search search-form"><span>⌕</span><input class="search-input" placeholder="輸入民眾問題或關鍵字"><button>搜尋</button></form>
+        </div>
+        <div id="searchMeta" class="result-meta"></div>
+        <div id="searchResults" class="result-list"></div>
+      </section>
+
+      <section id="bankView" class="view">
+        <div class="section-heading compact"><div><span>QUESTION BANK</span><h2>電話測試題庫</h2></div><div class="bank-tools"><input id="bankFilter" placeholder="篩選題目…"><select id="categorySelect"></select></div></div>
+        <div id="bankList" class="bank-list"></div>
+      </section>
+
+      <section id="favoritesView" class="view">
+        <div class="section-heading compact"><div><span>MY LIBRARY</span><h2>我的收藏</h2><p>收藏資料儲存在本機瀏覽器。</p></div></div>
+        <div id="favoriteList" class="result-list"></div>
+      </section>
+    </main>
+  </div>
+
+  <div id="detailDrawer" class="drawer" aria-hidden="true">
+    <div class="drawer-backdrop" data-close></div>
+    <article class="drawer-panel">
+      <button class="drawer-close" data-close aria-label="關閉">×</button>
+      <div id="drawerContent"></div>
+    </article>
+  </div>
+  <div id="toast" class="toast" role="status"></div>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="search.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
