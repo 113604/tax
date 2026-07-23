@@ -1,7 +1,0 @@
-window.TaxSearch = (()=>{
-const synonyms={出租:['租屋','房東','租給','租賃'],自用:['自住','自己住','設籍'],身障:['身心障礙','殘障'],牌照:['車子','車輛','汽車'],繳款書:['稅單','補單'],分期:['延期','延繳'],房屋:['房子','住宅'],地價:['土地'],證明:['繳納證明','課稅明細'],復查:['行政救濟','不服','申訴'],繳稅:['繳款','付款','稅款'],遺產:['繼承','被繼承人','金融遺產'],娃娃機:['選物販賣機','夾娃娃機']};
-const norm=s=>(s||'').toLowerCase().replace(/[\s，。？！、；：,.!?()（）\-_/]/g,'');
-function expand(q){let arr=[q];Object.entries(synonyms).forEach(([k,vals])=>{if(q.includes(k)||vals.some(v=>q.includes(v)))arr.push(k,...vals)});return [...new Set(arr)].map(norm)}
-function score(item,q){const terms=expand(q);const question=norm(item.question), summary=norm(item.summary), answer=norm(item.answer), legal=norm(item.legalBasis), keys=norm((item.keywords||[]).join(''));let s=0;terms.forEach(t=>{if(!t)return;if(question.includes(t))s+=28;if(summary.includes(t))s+=15;if(keys.includes(t))s+=13;if(answer.includes(t))s+=7;if(legal.includes(t))s+=3});if(question.includes(norm(q)))s+=50;return s}
-function search(bank,q,category='全部'){const filtered=category==='全部'?bank:bank.filter(x=>x.category===category);if(!q.trim())return filtered.map(x=>({...x,_score:0}));return filtered.map(x=>({...x,_score:score(x,q)})).filter(x=>x._score>0).sort((a,b)=>b._score-a._score||a.id-b.id)}
-return{search,norm};})();
